@@ -11,9 +11,9 @@
 *.ilk
 *.old
 build
-Debug
+Debug、
+/packages
 documentation/html
-packages/
 *~
 *.o
 *.obj

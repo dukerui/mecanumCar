@@ -67,7 +67,6 @@
 #define FINSH_CMD_SIZE 80
 #define FINSH_USING_MSH
 #define FINSH_USING_MSH_DEFAULT
-#define FINSH_USING_MSH_ONLY
 #define FINSH_ARG_MAX 10
 
 /* Device virtual file system */
@@ -171,8 +170,12 @@
 #define BSP_USING_UART
 #define BSP_USING_UART2
 #define BSP_USING_PWM
+#define BSP_USING_PWM2
+#define BSP_USING_PWM2_CH2
+#define BSP_USING_PWM2_CH3
 #define BSP_USING_PWM3
 #define BSP_USING_PWM3_CH1
+#define BSP_USING_PWM3_CH2
 
 /* Board extended module Drivers */
 

@@ -54,7 +54,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\build\keil\List\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER, STM32F411xE</Define>
               <Undefine></Undefine>
-              <IncludePath>.;rt-thread\include;applications;.;board;board\CubeMX_Config\Inc;libraries\HAL_Drivers;libraries\HAL_Drivers\config;packages\rt-robot-latest\chassis;packages\rt-robot-latest\controller;packages\rt-robot-latest\encoder;packages\rt-robot-latest\kinematics;packages\rt-robot-latest\motor;packages\rt-robot-latest\pid;packages\rt-robot-latest\robot;packages\rt-robot-latest\wheel;rt-thread\libcpu\arm\cortex-m4;rt-thread\libcpu\arm\common;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\finsh;libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Inc;libraries\STM32F4xx_HAL\CMSIS\Device\ST\STM32F4xx\Include;libraries\STM32F4xx_HAL\CMSIS\Include</IncludePath>
+              <IncludePath>.;rt-thread\include;applications;.;board;board\CubeMX_Config\Inc;libraries\HAL_Drivers;libraries\HAL_Drivers\config;packages\rt-robot-latest\chassis;packages\rt-robot-latest\controller;packages\rt-robot-latest\encoder;packages\rt-robot-latest\kinematics;packages\rt-robot-latest\motor;packages\rt-robot-latest\protocol;packages\rt-robot-latest\robot;packages\rt-robot-latest\wheel;rt-thread\libcpu\arm\cortex-m4;rt-thread\libcpu\arm\common;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\finsh;libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Inc;libraries\STM32F4xx_HAL\CMSIS\Device\ST\STM32F4xx\Include;libraries\STM32F4xx_HAL\CMSIS\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -466,6 +466,16 @@
               <FileType>1</FileType>
               <FilePath>applications\main.c</FilePath>
             </File>
+            <File>
+              <FileName>mecanumCar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\mecanumCar.c</FilePath>
+            </File>
+            <File>
+              <FileName>mobile_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\mobile_cmd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -517,14 +527,19 @@
               <FilePath>packages\rt-robot-latest\chassis\chassis.c</FilePath>
             </File>
             <File>
-              <FileName>command.c</FileName>
+              <FileName>controller.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\rt-robot-latest\controller\command.c</FilePath>
+              <FilePath>packages\rt-robot-latest\controller\controller.c</FilePath>
             </File>
             <File>
-              <FileName>ps2.c</FileName>
+              <FileName>inc_pid_controller.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\rt-robot-latest\controller\ps2.c</FilePath>
+              <FilePath>packages\rt-robot-latest\controller\inc_pid_controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>pos_pid_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\rt-robot-latest\controller\pos_pid_controller.c</FilePath>
             </File>
             <File>
               <FileName>ab_phase_encoder.c</FileName>
@@ -562,9 +577,14 @@
               <FilePath>packages\rt-robot-latest\motor\single_pwm_motor.c</FilePath>
             </File>
             <File>
-              <FileName>pid.c</FileName>
+              <FileName>command.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\rt-robot-latest\pid\pid.c</FilePath>
+              <FilePath>packages\rt-robot-latest\protocol\command.c</FilePath>
+            </File>
+            <File>
+              <FileName>ps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\rt-robot-latest\protocol\ps2.c</FilePath>
             </File>
             <File>
               <FileName>mobile_robot.c</FileName>
@@ -700,6 +720,56 @@
               <FileName>msh_file.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\finsh\msh_file.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_compiler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_compiler.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_error.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_error.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_heap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_heap.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_node.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_node.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_ops.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_ops.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_parser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_parser.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_var.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_var.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_vm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_vm.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_token.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\finsh\finsh_token.c</FilePath>
             </File>
           </Files>
         </Group>
