@@ -8,6 +8,7 @@
 #include "single_pwm_motor.h"
 #include "board.h"
 #include "command.h"
+#include "ps2.h"
 
 /************** car *****************/
 chassis_t chas;

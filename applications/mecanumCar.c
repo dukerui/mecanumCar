@@ -7,6 +7,10 @@
 static rt_thread_t tid_car = RT_NULL;
 static rt_err_t car_stop(rt_int8_t cmd, void *param);
 static rt_err_t car_forward(rt_int8_t cmd, void *param);
+static rt_err_t car_backward(rt_int8_t cmd, void *param);
+static rt_err_t car_turnleft(rt_int8_t cmd, void *param);
+static rt_err_t car_turnright(rt_int8_t cmd, void *param);
+
 
 void car_thread(void *param)
 {
@@ -27,7 +31,7 @@ void car_thread(void *param)
 
     while (1)
     {
-        rt_thread_mdelay(1000);
+        rt_thread_mdelay(200);
         chassis_update(chas);
         // ano_send_senser(chas->c_wheels[0]->rpm, chas->c_wheels[0]->w_controller->target, chas->c_wheels[1]->rpm, chas->c_wheels[1]->w_controller->target,0,0,0,0,0,0);
     }
@@ -91,9 +95,9 @@ void car_init(void *parameter)
     // Register command
     command_register(COMMAND_CAR_STOP, car_stop);
     command_register(COMMAND_CAR_FORWARD, car_forward);
-    //command_register(COMMAND_CAR_BACKWARD, car_backward);
-    //command_register(COMMAND_CAR_TURNLEFT, car_turnleft);
-    //command_register(COMMAND_CAR_TURNRIGHT, car_turnright);
+    command_register(COMMAND_CAR_BACKWARD, car_backward);
+    command_register(COMMAND_CAR_TURNLEFT, car_turnleft);
+    command_register(COMMAND_CAR_TURNRIGHT, car_turnright);
 
     rt_kprintf("car command register complete\n");
     // struct velocity target_velocity;
@@ -103,7 +107,7 @@ void car_init(void *parameter)
     // target_velocity.angular_z = 0;
     // chassis_set_velocity(chas, target_velocity);
     // Controller
-    //ps2_init(28, 29, 4, 36);
+    ps2_init(22, 6, 7, 5);
 
     // thread
     tid_car = rt_thread_create("tcar",
@@ -135,7 +139,7 @@ static rt_err_t car_forward(rt_int8_t cmd, void *param)
 {
     struct velocity target_velocity;
 
-    target_velocity.linear_x = 0.05f;
+    target_velocity.linear_x = 0.4f;
     target_velocity.linear_y = 0;
     target_velocity.angular_z = 0;
     chassis_set_velocity(chas, target_velocity);
@@ -144,3 +148,43 @@ static rt_err_t car_forward(rt_int8_t cmd, void *param)
 
     return RT_EOK;
 }
+static rt_err_t car_backward(rt_int8_t cmd, void *param)
+{
+    struct velocity target_velocity;
+
+    target_velocity.linear_x = -0.4f;
+    target_velocity.linear_y = 0;
+    target_velocity.angular_z = 0;
+    chassis_set_velocity(chas, target_velocity);
+
+    LOG_D("backward cmd");
+
+    return RT_EOK;
+}
+static rt_err_t car_turnleft(rt_int8_t cmd, void *param)
+{
+    struct velocity target_velocity;
+
+    target_velocity.linear_x = 0.00f;
+    target_velocity.linear_y = 0;
+    target_velocity.angular_z = 2;
+    chassis_set_velocity(chas, target_velocity);
+
+    LOG_D("turnleft cmd");
+
+    return RT_EOK;
+}
+static rt_err_t car_turnright(rt_int8_t cmd, void *param)
+{
+    struct velocity target_velocity;
+
+    target_velocity.linear_x = 0.00f;
+    target_velocity.linear_y = 0;
+    target_velocity.angular_z = -2;
+    chassis_set_velocity(chas, target_velocity);
+
+    LOG_D("turnright cmd");
+
+    return RT_EOK;
+}
+
