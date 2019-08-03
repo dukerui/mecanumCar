@@ -57,6 +57,10 @@ static void mobile_robot(int argc, char *argv[])
     target_vel.angular_z = angular_z; // rad/s
 
     chassis_set_velocity(chas, target_vel);
+
+    //加入LOG读pin脚状态 直接用电表测
+
+
     if (duration > 0)
     {
         rt_thread_mdelay(duration);
