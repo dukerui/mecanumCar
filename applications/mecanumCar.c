@@ -32,7 +32,11 @@ void car_thread(void *param)
     while (1)
     {
         rt_thread_mdelay(200);
-        chassis_update(chas);
+        encoder_measure_rpm(chas->c_wheels[0]->w_encoder);
+			  encoder_measure_rpm(chas->c_wheels[2]->w_encoder);
+        encoder_measure_rpm(chas->c_wheels[3]->w_encoder);
+        rt_kprintf("\rcount:%3d %3d %3d",chas->c_wheels[0]->w_encoder->pulse_count, chas->c_wheels[2]->w_encoder->pulse_count, chas->c_wheels[3]->w_encoder->pulse_count);
+        //chassis_update(chas);
         // ano_send_senser(chas->c_wheels[0]->rpm, chas->c_wheels[0]->w_controller->target, chas->c_wheels[1]->rpm, chas->c_wheels[1]->w_controller->target,0,0,0,0,0,0);
     }
 
@@ -107,7 +111,7 @@ void car_init(void *parameter)
     // target_velocity.angular_z = 0;
     // chassis_set_velocity(chas, target_velocity);
     // Controller
-    ps2_init(22, 6, 7, 5);
+    //ps2_init(22, 6, 7, 5);
 
     // thread
     tid_car = rt_thread_create("tcar",
@@ -140,8 +144,8 @@ static rt_err_t car_forward(rt_int8_t cmd, void *param)
     struct velocity target_velocity;
 
     target_velocity.linear_x = 0.4f;
-    target_velocity.linear_y = 0;
-    target_velocity.angular_z = 0;
+    target_velocity.linear_y = 0.0f;
+    target_velocity.angular_z = 0.0f;
     chassis_set_velocity(chas, target_velocity);
 
     LOG_D("forward cmd");
@@ -153,8 +157,8 @@ static rt_err_t car_backward(rt_int8_t cmd, void *param)
     struct velocity target_velocity;
 
     target_velocity.linear_x = -0.4f;
-    target_velocity.linear_y = 0;
-    target_velocity.angular_z = 0;
+    target_velocity.linear_y = 0.0f;
+    target_velocity.angular_z = 0.0f;
     chassis_set_velocity(chas, target_velocity);
 
     LOG_D("backward cmd");
@@ -165,9 +169,9 @@ static rt_err_t car_turnleft(rt_int8_t cmd, void *param)
 {
     struct velocity target_velocity;
 
-    target_velocity.linear_x = 0.00f;
-    target_velocity.linear_y = 0;
-    target_velocity.angular_z = 2;
+    target_velocity.linear_x = 0.0f;
+    target_velocity.linear_y = 0.4f;
+    target_velocity.angular_z = 0.0f;
     chassis_set_velocity(chas, target_velocity);
 
     LOG_D("turnleft cmd");
@@ -178,9 +182,9 @@ static rt_err_t car_turnright(rt_int8_t cmd, void *param)
 {
     struct velocity target_velocity;
 
-    target_velocity.linear_x = 0.00f;
-    target_velocity.linear_y = 0;
-    target_velocity.angular_z = -2;
+    target_velocity.linear_x = 0.0f;
+    target_velocity.linear_y = -0.4f;
+    target_velocity.angular_z = 0.0f;
     chassis_set_velocity(chas, target_velocity);
 
     LOG_D("turnright cmd");
