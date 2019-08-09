@@ -32,11 +32,6 @@ void car_thread(void *param)
     while (1)
     {
         rt_thread_mdelay(200);
-        encoder_measure_rpm(chas->c_wheels[0]->w_encoder);
-        encoder_measure_rpm(chas->c_wheels[1]->w_encoder);
-        encoder_measure_rpm(chas->c_wheels[2]->w_encoder);
-        encoder_measure_rpm(chas->c_wheels[3]->w_encoder);
-        //rt_kprintf("\rcount:%3d %3d %3d %3d",chas->c_wheels[0]->w_encoder->pulse_count,chas->c_wheels[1]->w_encoder->pulse_count, chas->c_wheels[2]->w_encoder->pulse_count, chas->c_wheels[3]->w_encoder->pulse_count);
         chassis_update(chas);
         // ano_send_senser(chas->c_wheels[0]->rpm, chas->c_wheels[0]->w_controller->target, chas->c_wheels[1]->rpm, chas->c_wheels[1]->w_controller->target,0,0,0,0,0,0);
     }
@@ -58,11 +53,6 @@ void car_init(void *parameter)
     single_pwm_motor_t FR_motor = single_pwm_motor_create(FR_motor_PWM, FR_motor_PWM_CHANNEL, FR_motor_DIR_PIN, NULL);
     single_pwm_motor_t BL_motor = single_pwm_motor_create(BL_motor_PWM, BL_motor_PWM_CHANNEL, BL_motor_DIR_PIN, NULL);
     single_pwm_motor_t BR_motor = single_pwm_motor_create(BR_motor_PWM, BR_motor_PWM_CHANNEL, BR_motor_DIR_PIN, NULL);
-    // single_pwm_motor_enable(FL_motor);
-    // single_pwm_motor_enable(FR_motor);
-    // single_pwm_motor_enable(BL_motor);
-    // single_pwm_motor_enable(BR_motor);
-
     // 1.2 Create four encoders
     ab_phase_encoder_t FL_encoder = ab_phase_encoder_create(FL_ENCODER_A_PHASE_PIN, FL_ENCODER_B_PHASE_PIN, PULSE_PER_REVOL);
     ab_phase_encoder_t FR_encoder = ab_phase_encoder_create(FR_ENCODER_A_PHASE_PIN, FR_ENCODER_B_PHASE_PIN, PULSE_PER_REVOL);
@@ -96,10 +86,6 @@ void car_init(void *parameter)
 
     // 4. Enable Chassis
     chassis_enable(chas);
-    //encoder_enable(chas->c_wheels[0]->w_encoder);
-    //encoder_enable(chas->c_wheels[1]->w_encoder);
-    //encoder_enable(chas->c_wheels[2]->w_encoder);
-    //encoder_enable(chas->c_wheels[3]->w_encoder);
     // Register command
     command_register(COMMAND_CAR_STOP, car_stop);
     command_register(COMMAND_CAR_FORWARD, car_forward);
@@ -108,12 +94,6 @@ void car_init(void *parameter)
     command_register(COMMAND_CAR_TURNRIGHT, car_turnright);
 
     rt_kprintf("car command register complete\n");
-    // struct velocity target_velocity;
-
-    // target_velocity.linear_x = 0.20f;
-    // target_velocity.linear_y = 0;
-    // target_velocity.angular_z = 0;
-    // chassis_set_velocity(chas, target_velocity);
     // Controller
     //ps2_init(22, 6, 7, 5);
 
