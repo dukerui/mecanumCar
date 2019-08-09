@@ -18,17 +18,17 @@ chassis_t chas;
 
 /************** encoder *************/
 //FL TIM2 CH2  D
-#define FL_ENCODER_A_PHASE_PIN GET_PIN(C, 0)
-#define FL_ENCODER_B_PHASE_PIN GET_PIN(C, 1)
+#define FL_ENCODER_A_PHASE_PIN      32//GET_PIN(C, 0)
+#define FL_ENCODER_B_PHASE_PIN      33//GET_PIN(C, 1)
 //FR TIM2 CH3  B
-#define FR_ENCODER_A_PHASE_PIN GET_PIN(A, 1)
-#define FR_ENCODER_B_PHASE_PIN GET_PIN(A, 0)
+#define FR_ENCODER_A_PHASE_PIN      42 //GET_PIN(A, 1)
+#define FR_ENCODER_B_PHASE_PIN      44 //GET_PIN(A, 0)
 //BL TIM3 CH1  C
-#define BL_ENCODER_A_PHASE_PIN GET_PIN(B, 0)
-#define BL_ENCODER_B_PHASE_PIN GET_PIN(A, 4)
+#define BL_ENCODER_A_PHASE_PIN      35//GET_PIN(B, 0)
+#define BL_ENCODER_B_PHASE_PIN      34 //GET_PIN(A, 4)
 //BR TIM3 CH2  A
-#define BR_ENCODER_A_PHASE_PIN GET_PIN(B, 9)
-#define BR_ENCODER_B_PHASE_PIN GET_PIN(B, 8)
+#define BR_ENCODER_A_PHASE_PIN      38//GET_PIN(B, 9)
+#define BR_ENCODER_B_PHASE_PIN      40//GET_PIN(B, 8)
 #define PULSE_PER_REVOL 390 // Real value 2000
 #define SAMPLE_TIME 50
 //#define FL_ENCODER_PIN            62     // GET_PIN(D, 14)

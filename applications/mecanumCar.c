@@ -33,10 +33,11 @@ void car_thread(void *param)
     {
         rt_thread_mdelay(200);
         encoder_measure_rpm(chas->c_wheels[0]->w_encoder);
-			  encoder_measure_rpm(chas->c_wheels[2]->w_encoder);
+        encoder_measure_rpm(chas->c_wheels[1]->w_encoder);
+        encoder_measure_rpm(chas->c_wheels[2]->w_encoder);
         encoder_measure_rpm(chas->c_wheels[3]->w_encoder);
-        rt_kprintf("\rcount:%3d %3d %3d",chas->c_wheels[0]->w_encoder->pulse_count, chas->c_wheels[2]->w_encoder->pulse_count, chas->c_wheels[3]->w_encoder->pulse_count);
-        //chassis_update(chas);
+        //rt_kprintf("\rcount:%3d %3d %3d %3d",chas->c_wheels[0]->w_encoder->pulse_count,chas->c_wheels[1]->w_encoder->pulse_count, chas->c_wheels[2]->w_encoder->pulse_count, chas->c_wheels[3]->w_encoder->pulse_count);
+        chassis_update(chas);
         // ano_send_senser(chas->c_wheels[0]->rpm, chas->c_wheels[0]->w_controller->target, chas->c_wheels[1]->rpm, chas->c_wheels[1]->w_controller->target,0,0,0,0,0,0);
     }
 
@@ -95,7 +96,10 @@ void car_init(void *parameter)
 
     // 4. Enable Chassis
     chassis_enable(chas);
-
+    //encoder_enable(chas->c_wheels[0]->w_encoder);
+    //encoder_enable(chas->c_wheels[1]->w_encoder);
+    //encoder_enable(chas->c_wheels[2]->w_encoder);
+    //encoder_enable(chas->c_wheels[3]->w_encoder);
     // Register command
     command_register(COMMAND_CAR_STOP, car_stop);
     command_register(COMMAND_CAR_FORWARD, car_forward);
